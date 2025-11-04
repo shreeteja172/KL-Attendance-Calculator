@@ -1,5 +1,8 @@
 import { useState } from "react";
 import AttendanceForm from "../components/AttendanceForm";
+import AttendanceCalculator from "../components/AttendanceCalculator";
+
+
 const Home = () => {
   const [totalConducted, setTotalConducted] = useState<number | null>(null);
   const [totalAttended, setTotalAttended] = useState<number | null>(null);
