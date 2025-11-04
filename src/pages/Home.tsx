@@ -1,10 +1,12 @@
 import { useState } from "react";
 import AttendanceForm from "../components/AttendanceForm";
 import AttendanceCalculator from "../components/AttendanceCalculator";
+import FeedbackModal from "../components/FeedbackModal";
 
 const Home = () => {
   const [totalConducted, setTotalConducted] = useState<number | null>(null);
   const [totalAttended, setTotalAttended] = useState<number | null>(null);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
   const handleCalculate = (conducted: number, attended: number) => {
     setTotalConducted(conducted);
@@ -95,23 +97,46 @@ const Home = () => {
       </div>
 
       <footer className="mt-20 pt-8 border-t border-(--color-border)">
-        <div className="flex items-center justify-between text-sm">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
           <p className="text-(--color-muted-foreground)">
             KL University Attendance Calculator
           </p>
-          <p className="text-(--color-muted-foreground)">
-            Built by{" "}
-            <a
-              // href="https://github.com/shreeteja172"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-(--color-foreground) hover:text-(--color-primary) transition-colors"
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setIsFeedbackOpen(true)}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-(--color-primary)/10 text-(--color-primary) hover:bg-(--color-primary)/20 transition-colors font-medium"
             >
-              Shreeteja M
-            </a>
-          </p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+              Suggest Changes
+            </button>
+            <p className="text-(--color-muted-foreground)">
+              Built by{" "}
+              <a
+                // href="https://github.com/shreeteja172"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-(--color-foreground) hover:text-(--color-primary) transition-colors"
+              >
+                Shreeteja M
+              </a>
+            </p>
+          </div>
         </div>
       </footer>
+
+      <FeedbackModal
+        isOpen={isFeedbackOpen}
+        onClose={() => setIsFeedbackOpen(false)}
+      />
     </main>
   );
 };
