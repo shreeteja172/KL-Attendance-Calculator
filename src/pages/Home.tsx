@@ -2,7 +2,6 @@ import { useState } from "react";
 import AttendanceForm from "../components/AttendanceForm";
 import AttendanceCalculator from "../components/AttendanceCalculator";
 
-
 const Home = () => {
   const [totalConducted, setTotalConducted] = useState<number | null>(null);
   const [totalAttended, setTotalAttended] = useState<number | null>(null);
@@ -44,8 +43,16 @@ const Home = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="lg:sticky lg:top-8 lg:self-start">
+        <div className="space-y-8">
           <AttendanceForm onCalculate={handleCalculate} />
+
+          {totalConducted !== null && totalAttended !== null && (
+            <AttendanceCalculator
+              totalConducted={totalConducted}
+              totalAttended={totalAttended}
+              mode="planner"
+            />
+          )}
         </div>
 
         <div>
@@ -53,6 +60,7 @@ const Home = () => {
             <AttendanceCalculator
               totalConducted={totalConducted}
               totalAttended={totalAttended}
+              mode="results"
             />
           ) : (
             <div className="border border-(--color-border) rounded-lg p-10 bg-(--color-card) h-full flex items-center justify-center min-h-[400px]">
